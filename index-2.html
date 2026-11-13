@@ -3073,7 +3073,7 @@ function midBar(topic){
   setInterval(sync,400);
 })();
 </script>
-<script>arqP(43.2)</script><script id="v18-js">
+<script>arqP(43.1)</script><script id="v18-js">
 /* ===== v18: اختيار اللغة (العربية · Français · English) + عناوين بالصور ===== */
 function langName(l){return {ar:'العربية',fr:'Français',en:'English'}[l]||l}
 function langLbl(){const b=document.querySelector('#utLang b');if(b)b.textContent=langName(LANG)}
@@ -8084,7 +8084,7 @@ html[dir=rtl] .card.fr>span{direction:ltr;unicode-bidi:isolate}
 })();
 
 </script>
-<script>arqP(83.0)</script><script id="v30-motion">
+<script>arqP(82.9)</script><script id="v30-motion">
 /* v30: لغة حركة موحّدة — انتقالات الشاشات، الأيقونات، الأزرار، النوافذ، والبطاقات */
 (function(){
 'use strict';
@@ -9506,7 +9506,7 @@ html body #on>.panel,html body #on>.sh>p{display:none!important}
     - لا يرى إلا زملاءه في نفس القسم (الأستاذ يضيفهم)، وفقط الحسابات المقبولة
     - في غرفة الانتظار: لائحة أفقية بالزملاء، ضغطة = دعوة (قبول / رفض فقط، بلا دردشة) */
  const IMGB=(window.IMG2&&IMG2.ieleve)||'',IMGG=(window.IMG2&&IMG2.ielevef)||'';
- let PR=null,CLS=null,pInit=0,pBusy=false,lastSt='',lastW=0,unW=null,LIST=[],SENT={},INV=null,invT=0;
+ let PSTAT='',PR=null,CLS=null,pInit=0,pBusy=false,lastSt='',lastW=0,unW=null,LIST=[],SENT={},INV=null,invT=0;
  const STALE=6*60e3,BEAT=120e3,COOL=20e3;
  const myName=()=>String((window.PROFILE&&PROFILE.name)||onName()||'').slice(0,20);
  const myG=()=>(window.PROFILE&&PROFILE.g)||'m';
@@ -9517,12 +9517,12 @@ html body #on>.panel,html body #on>.sh>p{display:none!important}
   if(PR||pBusy||!window.PROFILE||!PROFILE.code||window.ROLE==='teacher')return;
   if(Date.now()-pInit<60e3)return;pInit=Date.now();pBusy=true;
   try{const a=await api();if(!a.pres||!a.myDoc)return;
-   const d=await a.myDoc(PROFILE.code);if(!d||d.status!=='ok'||!d.cls){CLS=null;return}
-   CLS=d.cls;const p=await a.pres();PR=p;
+   const d=await a.myDoc(PROFILE.code);if(!d){PSTAT='nodoc';CLS=null;return}if(d.status!=='ok'){PSTAT='pending';CLS=null;return}if(!d.cls){PSTAT='nocls';CLS=null;return}
+   CLS=d.cls;PSTAT='ok';const p=await a.pres();PR=p;
    await beat(true);
    p.inbox(onInvite);p.outbox(onAnswer);
    setInterval(()=>beat(true),BEAT);
-  }catch(e){PR=null}finally{pBusy=false}
+  }catch(e){PR=null;PSTAT='err:'+String((e&&e.code)||(e&&e.message)||e).slice(0,40)}finally{pBusy=false}
  }
  async function beat(force){
   if(!PR||!CLS||document.hidden)return;const st=stNow();
@@ -9541,6 +9541,7 @@ html body #on>.panel,html body #on>.sh>p{display:none!important}
  $i('onOvC').after(cm);
  function cmShow(on){
   cm.hidden=!on;
+  if(on&&!PR){pInit=0;pStart().then(()=>{if(!cm.hidden){if(PR&&CLS&&!unW)unW=PR.watch(CLS,(l,err)=>{LIST=l||[];paintCm(err)});paintCm()}})}
   if(on&&PR&&CLS&&!unW){unW=PR.watch(CLS,(l,err)=>{LIST=l||[];paintCm(err)})}
   if(!on&&unW){try{unW()}catch(e){}unW=null}
   if(on)paintCm();
@@ -9548,11 +9549,14 @@ html body #on>.panel,html body #on>.sh>p{display:none!important}
  function paintCm(err){
   const h=cm.querySelector('.cmh'),L=cm.querySelector('.cml');
   h.textContent='👥 '+T('زملائي في القسم المتصلون','Mes camarades connectés','Classmates online');
-  if(!CLS||!PR){L.innerHTML='<p class="cme">'+T('لم يضفك أستاذك إلى قسم بعد. شارك الرمز مع صديقك.','Ton prof ne t’a pas encore ajouté à une classe. Partage le code.','Your teacher hasn’t added you to a class yet. Share the code.')+'</p>';return}
+  if(!CLS||!PR){const M={pending:T('حسابك لم يُقبل بعد من طرف الأستاذ.','Ton compte n’est pas encore validé.','Your account is not approved yet.'),nocls:T('لم يضفك أستاذك إلى قسم بعد. شارك الرمز مع صديقك.','Ton prof ne t’a pas encore ajouté à une classe. Partage le code.','Your teacher hasn’t added you to a class yet. Share the code.'),nodoc:T('لا يوجد حساب تلميذ بهذا الرمز.','Aucun compte pour ce code.','No student account for this code.')};
+   const m=M[PSTAT]||(PSTAT.indexOf('err:')===0?T('تعذّر الاتصال بالخادم ('+PSTAT.slice(4)+'). حاول مرة أخرى.','Connexion impossible ('+PSTAT.slice(4)+').','Server error ('+PSTAT.slice(4)+').'):T('جاري الاتصال…','Connexion…','Connecting…'));
+   L.innerHTML='<p class="cme">'+m+'</p>';return}
   if(err){L.innerHTML='<p class="cme">'+T('تعذّر جلب اللائحة الآن.','Liste indisponible.','List unavailable.')+'</p>';return}
   const now=Date.now(),rank={wait:0,on:1,busy:2};
   const arr=LIST.filter(x=>x.uid!==PR.me&&now-(x.at||0)<STALE).sort((a,b)=>(rank[a.st]??1)-(rank[b.st]??1)||String(a.n).localeCompare(String(b.n)));
-  if(!arr.length){L.innerHTML='<p class="cme">'+T('لا أحد من قسمك متصل الآن. شارك الرمز مع صديقك.','Aucun camarade connecté. Partage le code.','No classmate online now. Share the code.')+'</p>';return}
+  if(!arr.length){const oth=LIST.filter(x=>x.uid!==PR.me),old=oth.filter(x=>now-(x.at||0)>=STALE).length;
+   L.innerHTML='<p class="cme">'+T('لا أحد من قسمك متصل الآن. شارك الرمز مع صديقك.','Aucun camarade connecté. Partage le code.','No classmate online now. Share the code.')+'</p><p class="cme" dir="ltr" style="opacity:.6;font-size:11px">dbg: cls='+E(String(CLS))+' · docs='+LIST.length+' · others='+oth.length+' · old='+old+' · me='+E(String(PR.me).slice(0,5))+'</p>';return}
   const stl={wait:T('ينتظر','attend','waiting'),on:T('متصل','en ligne','online'),busy:T('يلعب','joue','playing')};
   L.innerHTML=arr.map(x=>{const s=SENT[x.uid],busy=x.st==='busy',st=s&&s.st;
    const lab=st==='sent'?'⏳':st==='yes'?'✅':'';
