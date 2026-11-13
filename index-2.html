@@ -5062,7 +5062,7 @@ window.ArqGK=GK;
 })();
 
 /* v39: ثلاثة أنشطة فرنسية جديدة: Homophones · Familles de mots · Classes grammaticales (6 جولات × 12 زوجا) */
-const FX_P=t=>t.trim().split('\n').map(l=>l.split('|').map(x=>x.trim()));
+const FX_P=t=>t.trim().split('\n').map(l=>l.split('|').map(x=>x.trim().replace(/_{3,}/g,'…')));
 const FHO=[
 FX_P(`Il ___ un chat.|a
 Je vais ___ l'école.|à
@@ -5510,7 +5510,7 @@ AX_P(`مدرسـ□|ة
 AX_P(`□سد|أ
 □بريق|إ
 □رنب|أ
-□صبع|إ
+□صبع|أ
 □مي|أ
 □ناء|إ
 □كل|أ
@@ -5573,9 +5573,9 @@ const AX=[
  {k:'aqs',bank:AQS,img:'aqs',t:'أقسام الكلمة',f:'اسم · فعل · حرف',i:'🏷️',c:'#2563d6',dup:1,
   h:['اسم · فعل','اسم · فعل · حرف','الفعل: ماض · مضارع · أمر','الضمير واسم الإشارة','الضمير · اسم الإشارة · الاسم الموصول','حرف الجر وحرف العطف'],intro:'اربط كل كلمة بقسمها.'},
  {k:'aim',bank:AIM,img:'aim',t:'الإملاء',f:'ة / ت · أ / إ · ا / ى',i:'✏️',c:'#d93b78',dup:1,
-  h:['التاء المربوطة والمفتوحة','الهمزة في أول الكلمة','الهمزة في وسط الكلمة وآخرها','الألف اللينة','اللام الشمسية والقمرية','مراجعة'],intro:'أكمل كل كلمة بالحرف المناسب مكان □.'}
+  h:['التاء المربوطة والمفتوحة','الهمزة في أول الكلمة','الهمزة في وسط الكلمة وآخرها','الألف اللينة','اللام الشمسية والقمرية','مراجعة'],intro:'أكمل كل كلمة بالحرف المناسب مكان النقط (…).'}
 ];
-function axDeck(s,li){const rows=(s.bank[li]||[]).map(([q,a])=>[q.indexOf('□')>=0?'\u200F'+q+'\u200F':q,a,0]);for(let i=rows.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[rows[i],rows[j]]=[rows[j],rows[i]]}return rows}
+function axDeck(s,li){const rows=(s.bank[li]||[]).map(([q,a])=>[q.indexOf('□')>=0?'\u200F'+q.replace(/□/g,'…')+'\u200F':q,a,0]);for(let i=rows.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[rows[i],rows[j]]=[rows[j],rows[i]]}return rows}
 AX.forEach(s=>{
  s.g='a';s.kind='ax';s.n=6;s.size=12;s.lv=Array.from({length:6},(_,i)=>'الجولة '+(i+1));
  SK.push(s);
@@ -5614,7 +5614,7 @@ AX.forEach(s=>{
   add('الإملاء','L’orthographe','Spelling');
   add('اربط كل كلمة بمثناها أو جمعها.','Associe chaque mot à son duel ou à son pluriel.','Match each word with its dual or plural.');
   add('اربط كل كلمة بقسمها.','Associe chaque mot à sa classe.','Match each word with its part of speech.');
-  add('أكمل كل كلمة بالحرف المناسب مكان □.','Complète chaque mot avec la bonne lettre à la place de □.','Complete each word with the right letter in place of □.');
+  add('أكمل كل كلمة بالحرف المناسب مكان النقط (…).','Complète chaque mot avec la bonne lettre à la place des points (…).','Complete each word with the right letter in place of the dots (…).');
   [['المثنى','Le duel','Dual'],['جمع المذكر السالم','Pluriel masculin régulier','Sound masculine plural'],['جمع المؤنث السالم','Pluriel féminin régulier','Sound feminine plural'],
    ['جمع التكسير 1','Pluriel irrégulier 1','Broken plural 1'],['جمع التكسير 2','Pluriel irrégulier 2','Broken plural 2'],['مراجعة','Révision','Review'],
    ['اسم · فعل','Nom · verbe','Noun · verb'],['اسم · فعل · حرف','Nom · verbe · particule','Noun · verb · particle'],['الفعل: ماض · مضارع · أمر','Le verbe : passé · présent · impératif','Verb: past · present · imperative'],
