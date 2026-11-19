@@ -42,7 +42,7 @@ html:not(.arq-ready) body>*:not(#arqLoad){visibility:hidden!important}
 .dp .bar b{max-width:62%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #d1-name,.nm0,#m-title{background:linear-gradient(#c36bff,#8e44ad)}
 #d2-name,.nm1{background:linear-gradient(#2fd3c0,#13a08f)}
-body{overflow-x:hidden}#res{overflow:hidden}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:hidden}body{overflow-x:hidden;max-width:100vw}#res{overflow:hidden}
 .winbox{position:relative;isolation:isolate;border:3px solid #ffc800!important;background:linear-gradient(160deg,#fffbe8,#fff0b8)!important;animation:glow 1.3s ease-in-out infinite alternate}
 .winbox::before{content:"";position:absolute;left:50%;top:50%;width:min(120vw,520px);aspect-ratio:1;z-index:-1;pointer-events:none;transform:translate(-50%,-50%);border-radius:50%;background:repeating-conic-gradient(rgba(255,205,40,.6) 0 8deg,rgba(255,205,40,0) 8deg 16deg);-webkit-mask-image:radial-gradient(closest-side,#000 35%,transparent 100%);mask-image:radial-gradient(closest-side,#000 35%,transparent 100%);animation:spin 9s linear infinite}
 .winbox::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.8) 50%,transparent 65%);background-size:250% 100%;animation:shine 2.2s ease-in-out infinite}
@@ -6759,6 +6759,8 @@ html body #duel.ch2 .cc,html body #duel.ch2 .cpz,html body #duel.ch2 .ctm{height
  };
 
  const css=document.createElement('style');css.id='v70-dres';css.textContent=`
+html body #res.dres{max-width:100vw;overflow-x:hidden}html body #res.dres>*{max-width:100%;box-sizing:border-box;min-width:0}
+#res .rx{min-width:0;max-width:min(520px,100%)}
 #res .rsh{display:none}
 html body #res.dres .rsh{display:block}
 html body #res.dres #resT{display:none!important}
@@ -11636,7 +11638,7 @@ html body #gnav button.nimg>.navimg{position:relative;z-index:1}`;
 <script>arqP(95.9)</script><script id="v132-news">/* v132: نوافذ الشرح للأطفال + نافذة «ما الجديد» (تظهر مرة واحدة لكل حساب عند كل تحديث) */
 (function(){
 'use strict';
-const VER=133,CUT=1794743959286;
+const VER=134,CUT=1794743959286;
 const LG=()=>{try{return uiLang()}catch(e){return 'ar'}};
 const T=(a,f,e)=>{const l=LG();return l==='fr'?f:l==='en'?e:a};
 const gk=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
@@ -11648,15 +11650,15 @@ const P={
  seq:{ic:'✅',t:['كيف تُفتح الجولة الموالية؟','Comment ouvrir la manche suivante ?','How does the next round open?'],
   m:['داخل كل مهارة، أتقن الجولة بنسبة <b>90% أو أكثر</b> ولو <b>مرة واحدة</b>، فتُفتح لك الجولة التي بعدها.<br>وفي الشاشة الرئيسية ترى عدد الجولات التي أتقنتها ✅','Dans chaque activité, réussis la manche à <b>90 % ou plus</b>, même <b>une seule fois</b>, et la suivante s’ouvre.<br>Sur l’accueil tu vois le nombre de manches réussies ✅','In each skill, score <b>90% or more</b> even <b>just once</b> and the next round opens.<br>On the home screen you see how many rounds you mastered ✅']},
  time:{ic:'⏱',t:['تحدَّ وقتك!','Bats ton temps !','Beat your time!'],
-  m:['عندما تتقن جولة نسجّل <b>وقتك</b>. العب الجولة من جديد بـ 90% أو أكثر وكن أسرع:<br>⭐ بـ 10 ثوان = نجمة<br>⭐⭐ بـ 15 ثانية = نجمتان<br>⭐⭐⭐ بـ 20 ثانية أو أكثر = ثلاث نجوم','Quand tu maîtrises une manche, on note <b>ton temps</b>. Rejoue-la à 90 % ou plus, en étant plus rapide :<br>⭐ de 10 s = 1 étoile<br>⭐⭐ de 15 s = 2 étoiles<br>⭐⭐⭐ de 20 s ou plus = 3 étoiles','When you master a round we save <b>your time</b>. Replay it at 90% or more and be faster:<br>⭐ by 10 s = 1 star<br>⭐⭐ by 15 s = 2 stars<br>⭐⭐⭐ by 20 s or more = 3 stars']},
+  m:['عندما تتقن جولة نسجّل <b>أسرع وقت</b> لك فيها. العب الجولة من جديد بـ 90% أو أكثر وكن أسرع منه:<br>⭐ أسرع بحتى 5 ثوان = نجمة<br>⭐⭐ أسرع من 5 إلى 10 ثوان = نجمتان<br>⭐⭐⭐ أسرع بأكثر من 10 ثوان = ثلاث نجوم<br>ونقارنك دائما بـ<b>أقل وقت</b> سجلته.','Quand tu maîtrises une manche, on note ton <b>meilleur temps</b>. Rejoue-la à 90 % ou plus, en étant plus rapide :<br>⭐ jusqu’à 5 s plus vite = 1 étoile<br>⭐⭐ de 5 à 10 s = 2 étoiles<br>⭐⭐⭐ plus de 10 s = 3 étoiles<br>On te compare toujours à ton <b>temps le plus court</b>.','When you master a round we save your <b>best time</b>. Replay it at 90% or more and be faster:<br>⭐ up to 5 s faster = 1 star<br>⭐⭐ 5 to 10 s faster = 2 stars<br>⭐⭐⭐ more than 10 s faster = 3 stars<br>You are always compared with your <b>shortest time</b>.']},
  stars:{ic:'⭐',t:['نجومك لك','Tes étoiles sont à toi','Your stars are yours'],
   m:['النجوم تُحفظ في <b>رصيدك</b>، ولا تؤثر على ترتيبك أو نقاطك.<br>قريبا ستستعملها في مفاجآت التحدي بين الأصدقاء 🎁','Les étoiles vont dans ta <b>réserve</b> et ne changent ni ton classement ni tes points.<br>Bientôt tu les utiliseras dans les défis entre amis 🎁','Stars go into your <b>wallet</b> and do not change your ranking or points.<br>Soon you will use them in friend challenges 🎁']}
 };
 P.two={ic:'🏆',t:['نقاطي ونجومي','Mes points et mes étoiles','My points and my stars'],
  m:['في بطاقتك الآن رصيدان منفصلان:<br>🏆 <b>نقاطي</b>: ما تجمعه من اللعب، وبها يكون ترتيبك.<br>⭐ <b>نجومي</b>: تربحها حين تكون أسرع من وقتك السابق.<br>وتجد كل شيء في «إحصائياتي» أيضا.','Ta carte a maintenant deux réserves séparées :<br>🏆 <b>Mes points</b> : ce que tu gagnes en jouant, pour ton classement.<br>⭐ <b>Mes étoiles</b> : tu les gagnes quand tu es plus rapide que ton temps précédent.<br>Tout est aussi dans « Mes statistiques ».','Your card now has two separate balances:<br>🏆 <b>My points</b>: what you earn by playing, used for your ranking.<br>⭐ <b>My stars</b>: you win them when you beat your previous time.<br>You can also see everything in “My stats”.']};
-const NEWSV={132:['open','seq','time','stars'],133:['two']};
+const NEWSV={132:['open','seq','time','stars'],133:['two'],134:['time']};
 const NEWS=['open','seq','time','stars','two'];
-const newsFor=seen=>{const o=[];Object.keys(NEWSV).map(Number).sort().forEach(v=>{if(v>seen)o.push(...NEWSV[v])});return o.length?o:NEWS};
+const newsFor=seen=>{const o=[];Object.keys(NEWSV).map(Number).sort().forEach(v=>{if(v>seen)o.push(...NEWSV[v])});const u=[...new Set(o)];return u.length?u:NEWS};
 let cur=null;
 const box=()=>document.getElementById('xBox'),ov=()=>document.getElementById('xOv');
 function paint(){
@@ -11717,8 +11719,8 @@ const norm=t=>(typeof t==='number'||/^\d+$/.test(String(t)))?'tb'+t:String(t);
 const skip=k=>/^(zz:|c?stage)/.test(k)||/^k(ci|fl|mo|ca)\d+$/.test(k);
 const fmtT=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
 const refs=()=>{if(!S.tref||typeof S.tref!=='object')S.tref={};return S.tref};
-const stars=d=>d>=20?3:d>=15?2:d>=10?1:0;
-const target=k=>{try{const r=refs()[norm(k)]||0;return r-10>0?r-10:0}catch(e){return 0}};
+const stars=d=>d>10?3:d>5?2:d>0?1:0; /* d = ثواني الإسراع عن أقل وقت سجّله التلميذ */
+const target=k=>{try{const r=refs()[norm(k)]||0;return r>1?r:0}catch(e){return 0}};
 window.ArqWallet=()=>+(S.sw||0);
 window.ArqTimeTarget=target;
 const css=document.createElement('style');css.id='v132-ts';css.textContent=`
@@ -11732,8 +11734,8 @@ function after(r,key,wasM,old){
  const ok=r.acc>=90,tm=Math.round(+r.time||0),R=refs();
  if(!ok||!tm){const tg=target(key);if(old&&tg)line('',`🎯 ${T('الهدف: أقل من','Objectif : moins de','Goal: under')} ${fmtT(tg)}`);return}
  if(!old){R[key]=tm;try{save()}catch(e){}
-  line('',wasM?`⏱ ${T('سجّلنا وقتك','Ton temps est noté','Your time is saved')}: <b>${fmtT(tm)}</b><br>${T('العب مجددا وكن أسرع بـ 10 ثوان لتربح ⭐','Rejoue et sois plus rapide de 10 s pour gagner ⭐','Replay and be 10 s faster to win ⭐')}`
-   :`⏱ ${T('وقتك في هذه الجولة','Ton temps sur cette manche','Your time on this round')}: <b>${fmtT(tm)}</b><br>${T('العب مجددا وكن أسرع بـ 10 ثوان لتربح ⭐','Rejoue et sois plus rapide de 10 s pour gagner ⭐','Replay and be 10 s faster to win ⭐')}`);
+  line('',wasM?`⏱ ${T('سجّلنا وقتك','Ton temps est noté','Your time is saved')}: <b>${fmtT(tm)}</b><br>${T('العب مجددا وكن أسرع لتربح ⭐','Rejoue plus vite pour gagner ⭐','Replay faster to win ⭐')}`
+   :`⏱ ${T('وقتك في هذه الجولة','Ton temps sur cette manche','Your time on this round')}: <b>${fmtT(tm)}</b><br>${T('العب مجددا وكن أسرع لتربح ⭐','Rejoue plus vite pour gagner ⭐','Replay faster to win ⭐')}`);
   if(!wasM&&window.ArqExplainOnce&&window.ArqNewsPages)ArqExplainOnce('tstar',['time','stars'],1600);
   return}
  const d=old-tm,n=stars(d);
@@ -11741,8 +11743,8 @@ function after(r,key,wasM,old){
   line('win',`⏱ ${T('كنت أسرع بـ','Tu as été plus rapide de','You were faster by')} <b>${d}</b> ${T('ثانية!','secondes !','seconds!')}<br>${'⭐'.repeat(n)} <b>+${n}</b> · ${T('رصيدك','Ta réserve','Wallet')}: <b>${S.sw}</b> ⭐`);
   try{snd.win&&snd.win()}catch(e){}return}
  const tg=target(key);
- line('',d>0?`⏱ ${T('أسرع بـ','Plus rapide de','Faster by')} <b>${d}</b> ${T('ثواني! تبقى القليل لتربح ⭐','s ! Encore un peu pour gagner ⭐','s! Almost there for ⭐')}`:`⏱ ${T('وقتك','Ton temps','Your time')}: <b>${fmtT(tm)}</b>`);
- if(tg){const p=document.querySelector('#resB .tsl');if(p)p.innerHTML+=`<br>🎯 ${T('الهدف: أقل من','Objectif : moins de','Goal: under')} ${fmtT(tg)}`}
+ line('',`⏱ ${T('وقتك','Ton temps','Your time')}: <b>${fmtT(tm)}</b>`);
+ if(tg){const p=document.querySelector('#resB .tsl');if(p)p.innerHTML+=`<br>🎯 ${T('لتربح ⭐ كن أسرع من','Pour gagner ⭐ fais mieux que','To win ⭐ beat')} ${fmtT(tg)}`}
 }
 if(typeof endPractice==='function'){const EP=endPractice;endPractice=function(r){
  let key=null,wasM=false,old=0;
