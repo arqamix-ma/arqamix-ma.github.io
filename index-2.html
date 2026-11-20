@@ -3132,7 +3132,7 @@ function midBar(topic){
   };
 })();
 </script>
-<script>arqP(41.2)</script><script id="v16-bgm">
+<script>arqP(41.1)</script><script id="v16-bgm">
 /* v16: موسيقى خلفية (بيانو) — تتبع زر الصوت وتتوقف مع Pause وعند إخفاء التطبيق */
 (function(){
   var BGM_VOL=0.28,a=new Audio("arq-music.mp3"),started=false;
@@ -12363,7 +12363,7 @@ const st=document.createElement('style');st.id='v141-av-css';st.textContent=`
 @keyframes avSh{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
 html body img.a141{object-fit:cover!important;object-position:50% 28%!important;border-radius:50%}
 html body #duel.ch2 .chp.v140 .pav img.a141{left:0!important;top:0!important;width:100%!important;height:100%!important;border-radius:0}
-html body #hx .x-av img{object-fit:cover!important;object-position:50% 30%!important}
+html body #hx .x-av img{border-radius:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:50% 30%!important}
 `;document.head.appendChild(st);
 let cb=null,cur='';
 const ov=document.createElement('div');ov.id='avp';ov.hidden=true;
@@ -12446,8 +12446,8 @@ html body #home .hs-top{display:none!important}
 #hx .x-nb::after{content:"";order:2;flex:0 0 1px;height:16px;background:rgba(255,255,255,.45)}
 #hx .x-k{order:3;flex:0 0 auto;border:0;font:900 8px/1 "Alan","IBM Plex Sans Arabic",sans-serif;color:#4a3000;direction:ltr;white-space:nowrap;background:linear-gradient(#ffe27a,#ffc21a);border-radius:999px;padding:5px 6px;box-shadow:0 2px 0 #c99a00;cursor:pointer}
 #hx .x-k:active{transform:translateY(1px)}
-#hx .x-i{flex:0 0 25px;display:flex;align-items:center;justify-content:center;gap:4px;min-width:0;background:linear-gradient(#e9f1ff,#d4e4ff);border-radius:999px;box-shadow:0 2px 0 #b3caf2;padding:0 6px;font-size:9.5px;font-weight:900;color:#12336f;white-space:nowrap;overflow:hidden}
-#hx .x-i span{flex:0 0 auto}
+#hx .x-i{flex:0 0 25px;display:flex;align-items:center;justify-content:center;gap:4px;min-width:0;background:linear-gradient(#e9f1ff,#d4e4ff);border-radius:999px;box-shadow:0 2px 0 #b3caf2;padding:0 8px;font-size:12.5px;font-weight:900;color:#12336f;white-space:nowrap;overflow:hidden}
+#hx .x-i span{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}#hx .x-i span:first-child{flex:0 0 auto}
 #hx .x-i s{text-decoration:none;color:#12336f;opacity:.5}
 #hx .x-p{flex:0 0 26px;display:flex;gap:6px}
 #hx .x-p>div{flex:1;display:flex;align-items:center;justify-content:center;gap:4px;min-width:0;border-radius:999px;box-shadow:0 2px 0 #b3caf2;background:linear-gradient(#e9f1ff,#d4e4ff);white-space:nowrap;padding:0 4px}
@@ -12514,7 +12514,7 @@ function hxBuild(){
  hx.querySelectorAll('.x-b button').forEach(b=>b.addEventListener('click',()=>{const o=b.dataset.x==='set'?document.querySelector('#home .hs-ic .setb, #home .ap.hdr .setb'):$(b.dataset.x);if(o)o.click();setTimeout(hxFill,150)}));
 }
 
-function hxFit(el,min){el.style.fontSize='';let f=parseFloat(getComputedStyle(el).fontSize)||12,n=0;while(el.scrollWidth>el.clientWidth&&f>min&&n++<40){f-=.5;el.style.fontSize=f+'px'}}
+function hxFit(el,min){el.style.fontSize='';let f=parseFloat(getComputedStyle(el).fontSize)||12,n=0;const ov=()=>el.scrollWidth>el.clientWidth||[...el.children].some(c=>c.scrollWidth>c.clientWidth+1);while(ov()&&f>min&&n++<40){f-=.5;el.style.fontSize=f+'px'}}
 let hxK='';
 function hxFill(){
  const P=window.PROFILE;if(!P||!hx)return;
